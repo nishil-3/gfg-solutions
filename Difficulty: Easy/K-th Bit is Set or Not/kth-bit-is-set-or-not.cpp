@@ -14,13 +14,15 @@ class Solution {
     bool checkKthBit(int n, int k) {
         // Your code here
         // It can be a one liner logic!! Think of it!!
+        // set when i is 1 ;
         
-        int c= n>>k;
-        if (c&1)
+        if((n&(1<<k))!=0)
         {
-            return true;
+            return true  ;
         }
-        return false;
+        
+        
+      return false ;
     }
 };
 
