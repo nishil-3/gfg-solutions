@@ -1,18 +1,21 @@
 class Solution {
   public:
-  int answer(int W, vector<int> &val, vector<int> &wt, int index,   vector<vector<int>> &mem)
+  int answer(int W, vector<int> &val, vector<int> &wt, int n,   vector<vector<int>> &dp)
   {
-      if (index == 0 || W ==0 ) return 0;
-      if(mem[index][W]!= -1) return mem[index][W];
-      // include and exclude 
-      if (wt[index-1] > W)
+      // tabulation code
+      for (int i =0;i<=n;i++)
       {
-          mem[index][W]= answer (W,val,wt,index-1,mem);
+          for(int j =0;j<=W;j++)
+          {
+              if(i==0 ||j==0) dp[i][j]=0;
+              else if (wt[i-1]>j) dp[i][j]=dp[i-1][j];
+              else dp[i][j] = max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
+          }
       }
-      else {
-          mem[index][W] = max(answer(W,val,wt,index-1,mem), val[index-1] + answer(W-wt[index-1],val,wt, index-1,mem));
-      }
-      return mem[index][W];
+          return dp[n][W];
+   
+      
+      
   }
     int knapsack(int W, vector<int> &val, vector<int> &wt) {
         // code here
